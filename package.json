@@ -1,0 +1,9 @@
+{
+  "name": "yt-ultrawide",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension: zoom letterboxed ultrawide YouTube videos to fill the screen in fullscreen.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

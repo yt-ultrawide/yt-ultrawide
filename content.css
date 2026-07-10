@@ -1,0 +1,29 @@
+video.ytuw-zoomed {
+  transform: scale(var(--ytuw-zoom)) !important;
+  transform-origin: center center !important;
+  transition: transform 0.3s ease !important;
+}
+
+.ytuw-button svg {
+  fill: none;
+}
+
+.ytuw-button .ytuw-slash {
+  display: none;
+}
+
+.ytuw-button[data-ytuw-mode='off'] {
+  opacity: 0.5;
+}
+
+.ytuw-button[data-ytuw-mode='off'] .ytuw-slash {
+  display: initial;
+}
+
+.ytuw-button[data-ytuw-mode='off'] .ytuw-arrows {
+  display: none;
+}
+
+.ytuw-button[data-ytuw-mode='on'] {
+  color: #3ea6ff;
+}
