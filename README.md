@@ -19,13 +19,12 @@ black bars) against your current screen's aspect ratio, so:
 ## Use
 
 Fully automatic in fullscreen. A button in the player's right-side controls
-(and `Shift+Z`) cycles the mode per video:
+(and `Shift+Z`) toggles it per video:
 
-- **auto** (default) — zoom when letterboxing is detected
+- **on** (default) — zoom to fill when letterboxing is detected
 - **off** — never zoom this video
-- **on** — force zoom (assumes 21:9 if nothing detected yet)
 
-The mode resets when you navigate to another video.
+The toggle resets when you navigate to another video.
 
 ## How detection works
 
