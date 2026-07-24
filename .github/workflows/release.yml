@@ -22,10 +22,10 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      - name: Build extension zip
-        run: npm run build
+      - name: Build Chrome package
+        run: npm run build:chrome
 
       - name: Publish GitHub Release with the store zip
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${{ github.ref_name }}" yt-ultrawide-v*.zip --title "${{ github.ref_name }}" --generate-notes
+        run: gh release create "${{ github.ref_name }}" dist/yt-ultrawide-v*.zip --title "${{ github.ref_name }}" --generate-notes

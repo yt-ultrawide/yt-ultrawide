@@ -1,3 +1,4 @@
 # build artifacts
+dist/
 yt-ultrawide-v*.zip
 .DS_Store

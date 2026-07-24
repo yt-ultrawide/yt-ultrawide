@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { computeZoom, scanBars, analyzeFrame, RatioAggregator } = require('../lib.js');
+const { computeZoom, scanBars, analyzeFrame, RatioAggregator } = require('../extension/lib.js');
 
 // ---------- computeZoom(screenAspect, frameAspect, contentAspect) ----------
 
