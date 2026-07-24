@@ -91,8 +91,11 @@ Check **"I do not collect or use user data."** The extension:
 Capture on an ultrawide display, in fullscreen, on a genuinely 21:9 video:
 
 1. **Before / Off** — letterboxed video with black bars on an ultrawide screen.
+   ✔ `screenshots/screenshot-1-letterboxed.png` (3440×1440 original) →
+   upload `screenshots/cws-1280x800-1-letterboxed.png`
 2. **After / On** — same frame filling the screen edge to edge.
-3. The toggle button + control (optional close-up of the player bar).
+   ✔ `screenshots/screenshot-2-filled.png` → upload `screenshots/cws-1280x800-2-filled.png`
+3. The toggle button + control (optional close-up of the player bar). _(todo)_
 
 Tip: pick a scene with detail near the top/bottom edges so the "no cropping"
 point is obvious.
