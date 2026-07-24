@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — YT Ultrawide Fill</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    max-width: 680px; margin: 0 auto; padding: 2.5rem 1.25rem;
+    color: #1a1a1a; background: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6e6; background: #101114; }
+    a { color: #6cb6ff; }
+  }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  .updated { color: #888; font-size: .9rem; margin-top: 0; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .35rem 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+  footer { margin-top: 2.5rem; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+  <h1>Privacy Policy — YT Ultrawide Fill</h1>
+  <p class="updated">Last updated: 24 July 2026</p>
+
+  <p>
+    YT Ultrawide Fill is a browser extension that zooms letterboxed ultrawide
+    (21:9) YouTube videos to fill an ultrawide display in fullscreen. This
+    policy explains what the extension does and does not do with your data.
+  </p>
+
+  <h2>The short version</h2>
+  <p>
+    <strong>The extension collects no data whatsoever.</strong> It has no
+    servers, makes no network requests, and includes no analytics or tracking
+    of any kind. Everything it does happens locally in your browser.
+  </p>
+
+  <h2>What data we collect</h2>
+  <ul>
+    <li><strong>None.</strong> No personal information, no browsing history, no
+      video titles, no usage statistics, no identifiers.</li>
+  </ul>
+
+  <h2>How the extension works</h2>
+  <ul>
+    <li>It runs only on <code>youtube.com</code> pages.</li>
+    <li>To measure a video's aspect ratio, it draws frames to an in-memory
+      canvas inside the page and inspects them for black bars. This happens
+      entirely on your device; frame data is never stored or transmitted.</li>
+    <li>Its only effect is to apply a visual zoom (a CSS transform) to the
+      video and to add a toggle button to the player controls.</li>
+  </ul>
+
+  <h2>Data sharing</h2>
+  <p>
+    Because no data is collected, no data is ever shared, sold, or sent to any
+    third party.
+  </p>
+
+  <h2>Permissions</h2>
+  <p>
+    The extension requests access only to <code>youtube.com</code>, which is
+    required to add the toggle button and apply the zoom. It requests no other
+    permissions.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    If this policy changes, the updated version will be published at this same
+    address with a new "Last updated" date.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions? Open an issue on the
+    <a href="https://github.com/ThomvEijk/yt-ultrawide">project repository</a>.
+  </p>
+
+  <footer>YT Ultrawide Fill is an independent project and is not affiliated with, endorsed by, or sponsored by YouTube or Google.</footer>
+</body>
+</html>

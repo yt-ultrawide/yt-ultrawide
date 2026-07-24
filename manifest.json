@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YT Ultrawide Fill",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Detects letterboxed ultrawide (21:9) YouTube videos and zooms them to fill your screen in fullscreen.",
   "minimum_chrome_version": "88",
   "icons": {
