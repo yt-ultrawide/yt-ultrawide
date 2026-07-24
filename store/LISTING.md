@@ -9,7 +9,7 @@ Copy/paste source for the Web Store dashboard. Keep this in sync with `manifest.
 - **Name:** YT Ultrawide Fill
 - **Category:** Productivity
 - **Language:** English (United States)
-- **Homepage URL:** https://github.com/ytultrawide/yt-ultrawide
+- **Homepage URL:** https://github.com/yt-ultrawide/yt-ultrawide
 - **Support email / URL:** ytultrawide@gmail.com (or the repo's Issues page)
 
 ## Short description (max 132 characters)
@@ -83,7 +83,7 @@ Check **"I do not collect or use user data."** The extension:
 - makes no network requests;
 - uses no analytics or third-party services.
 
-- **Privacy policy URL:** https://ytultrawide.github.io/yt-ultrawide/privacy-policy.html
+- **Privacy policy URL:** https://yt-ultrawide.github.io/yt-ultrawide/privacy-policy.html
   (served by GitHub Pages from `docs/` on the public repo)
 
 ## Screenshots (need 1–5; 1280×800 or 640×400)
