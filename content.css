@@ -6,6 +6,10 @@ video.ytuw-zoomed {
 
 .ytuw-button svg {
   fill: none;
+  /* YouTube applies padding:8px 12px to player-button SVGs. Without
+     border-box, our width/height:100% sizes the content box and the
+     padding pushes the icon down-and-right out of the 48x40 hit area. */
+  box-sizing: border-box;
 }
 
 .ytuw-button .ytuw-slash {
@@ -22,8 +26,4 @@ video.ytuw-zoomed {
 
 .ytuw-button[data-ytuw-mode='off'] .ytuw-arrows {
   display: none;
-}
-
-.ytuw-button[data-ytuw-mode='on'] {
-  color: #3ea6ff;
 }

@@ -11,7 +11,7 @@
   const CANVAS_WIDTH = 256;
 
   // Per-video state, reset on navigation.
-  let mode = 'auto'; // 'auto' | 'off' | 'on'
+  let mode = 'on'; // 'on' (auto-detect) | 'off'
   let aggregator = new RatioAggregator();
   let lockedRatio = null;
   let challenger = new RatioAggregator();
@@ -83,7 +83,7 @@
     if (document.fullscreenElement && mode !== 'off' && video.videoWidth) {
       const S = window.innerWidth / window.innerHeight;
       const F = video.videoWidth / video.videoHeight;
-      const C = lockedRatio || aggregator.provisional() || (mode === 'on' ? 21 / 9 : null);
+      const C = lockedRatio || aggregator.provisional() || null;
       if (C) zoom = computeZoom(S, F, C);
     }
     if (zoom <= 1.02) zoom = 1;
@@ -101,15 +101,13 @@
 
   // ---------- toggle button ----------
 
-  const MODES = ['auto', 'off', 'on'];
   const MODE_LABEL = {
-    auto: 'Ultrawide fill: auto (Shift+Z)',
+    on: 'Ultrawide fill: on (Shift+Z)',
     off: 'Ultrawide fill: off (Shift+Z)',
-    on: 'Ultrawide fill: forced on (Shift+Z)',
   };
 
-  function cycleMode() {
-    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+  function toggleMode() {
+    mode = mode === 'off' ? 'on' : 'off';
     console.info(TAG, 'mode:', mode);
     updateButton();
     updateZoom();
@@ -143,7 +141,7 @@
     el('path', { class: 'ytuw-arrows', d: 'M11 18 l3 -2.5 v5 z M25 18 l-3 -2.5 v5 z', fill: 'currentColor' });
     el('line', { class: 'ytuw-slash', x1: 8, y1: 27, x2: 28, y2: 9, stroke: 'currentColor', 'stroke-width': 2 });
     btn.appendChild(svg);
-    btn.addEventListener('click', cycleMode);
+    btn.addEventListener('click', toggleMode);
     controls.prepend(btn);
     updateButton();
   }
@@ -151,7 +149,7 @@
   // ---------- wiring ----------
 
   function resetForNewVideo() {
-    mode = 'auto';
+    mode = 'on';
     lockedRatio = null;
     aggregator = new RatioAggregator();
     challenger = new RatioAggregator();
@@ -191,7 +189,7 @@
       if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
       if (location.pathname !== '/watch') return;
       e.stopPropagation();
-      cycleMode();
+      toggleMode();
     },
     true
   );
