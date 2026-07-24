@@ -14,7 +14,7 @@ import os
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(ROOT, "assets", "logo-source.png")
+SRC = os.path.join(ROOT, "branding", "logo-source.png")
 
 # (size, fraction of the frame the artwork occupies)
 # 128 follows the store guideline (96/128 = 0.75); the small toolbar
@@ -31,7 +31,7 @@ def main():
         a.thumbnail((content, content), Image.LANCZOS)
         canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
         canvas.paste(a, ((size - a.width) // 2, (size - a.height) // 2), a)
-        out = os.path.join(ROOT, "icons", f"icon-{size}.png")
+        out = os.path.join(ROOT, "extension", "icons", f"icon-{size}.png")
         canvas.save(out)
         print(f"wrote {out} ({size}x{size}, content {a.size})")
 

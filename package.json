@@ -5,6 +5,8 @@
   "description": "Chrome extension: zoom letterboxed ultrawide YouTube videos to fill the screen in fullscreen.",
   "scripts": {
     "test": "node --test",
-    "build": "bash scripts/build.sh"
+    "build": "bash scripts/build-chrome.sh",
+    "build:chrome": "bash scripts/build-chrome.sh",
+    "build:safari": "bash scripts/build-safari.sh"
   }
 }

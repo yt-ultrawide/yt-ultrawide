@@ -20,12 +20,28 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      - name: Build extension zip
-        run: npm run build
+      - name: Build Chrome package
+        run: npm run build:chrome
 
-      - name: Upload extension package
+      - name: Upload Chrome package
         uses: actions/upload-artifact@v4
         with:
-          name: yt-ultrawide-extension
-          path: yt-ultrawide-v*.zip
+          name: yt-ultrawide-chrome
+          path: dist/yt-ultrawide-v*.zip
+          if-no-files-found: error
+
+  safari-convert:
+    name: safari-convert
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Convert shared extension to a Safari Web Extension
+        run: npm run build:safari
+
+      - name: Upload Safari project
+        uses: actions/upload-artifact@v4
+        with:
+          name: yt-ultrawide-safari
+          path: dist/safari
           if-no-files-found: error
