@@ -137,12 +137,21 @@
       for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
       svg.appendChild(node);
     };
-    el('rect', { x: 7, y: 12, width: 22, height: 12, rx: 1.5, fill: 'none', stroke: 'currentColor', 'stroke-width': 2 });
-    el('path', { class: 'ytuw-arrows', d: 'M11 18 l3 -2.5 v5 z M25 18 l-3 -2.5 v5 z', fill: 'currentColor' });
-    el('line', { class: 'ytuw-slash', x1: 8, y1: 27, x2: 28, y2: 9, stroke: 'currentColor', 'stroke-width': 2 });
+    // Glyph spans ~78% of the viewBox to match the visual weight of native
+    // 24px player icons (which cover ~75-83% of their box).
+    // stroke-width 3 renders as a crisp 2px at the 24px icon size (36->24
+    // viewBox scale), matching the weight of YouTube's filled icons.
+    // Native icons fill pure #fff, not the button's currentColor (#eee).
+    el('rect', { x: 4, y: 10, width: 28, height: 16, rx: 2, fill: 'none', stroke: '#fff', 'stroke-width': 3 });
+    el('path', { class: 'ytuw-arrows', d: 'M9.5 18 l3.5 -3 v6 z M26.5 18 l-3.5 -3 v6 z', fill: '#fff' });
+    el('line', { class: 'ytuw-slash', x1: 6, y1: 29, x2: 30, y2: 7, stroke: '#fff', 'stroke-width': 3 });
     btn.appendChild(svg);
     btn.addEventListener('click', toggleMode);
-    controls.prepend(btn);
+    // Sit directly left of the theater-mode button; fall back to the front of
+    // the control group if YouTube's layout changes.
+    const sizeBtn = controls.querySelector('.ytp-size-button');
+    if (sizeBtn) sizeBtn.parentElement.insertBefore(btn, sizeBtn);
+    else controls.prepend(btn);
     updateButton();
   }
 
