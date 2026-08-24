@@ -93,7 +93,7 @@ Check **"I do not collect or use user data."** The extension:
 - **Privacy policy URL:** https://yt-ultrawide.github.io/yt-ultrawide/privacy-policy.html
   (served by GitHub Pages from `docs/` on the public repo)
 
-## Notes for reviewers (paste into the submission's reviewer-notes field)
+## Test instructions (dashboard → the item → **Test instructions** tab)
 
 ```
 IMPORTANT: this extension is a deliberate no-op on a 16:9 display.
