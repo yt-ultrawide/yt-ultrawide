@@ -27,3 +27,30 @@ video.ytuw-zoomed {
 .ytuw-button[data-ytuw-mode='off'] .ytuw-arrows {
   display: none;
 }
+
+/* Toggle feedback. The zoom is deliberately a no-op on a display that is not
+   wider than the picture, so without this the button looks dead on a 16:9
+   screen. Sits inside #movie_player so it shows in fullscreen too. */
+.ytuw-toast {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: 80%;
+  padding: 10px 16px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: 'YouTube Noto', Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.3;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.ytuw-toast-visible {
+  opacity: 1;
+}

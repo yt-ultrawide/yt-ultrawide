@@ -18,8 +18,9 @@ Modules in `content.js`:
    rows/columns for near-black bars. Output: content aspect ratio.
 2. **Zoom controller** — on `fullscreenchange`, detector updates, and
    `resize`, computes and applies `transform: scale()` to the `<video>`.
-3. **Player button** — toggle in `.ytp-right-controls` cycling
-   auto → off → on, per video. Keyboard shortcut `Shift+Z`.
+3. **Player button** — toggle in `.ytp-right-controls` switching
+   auto ↔ off, per video. Keyboard shortcut `Shift+Z`. Toggling shows a
+   short in-player toast describing the resulting state.
 
 ## Bar detection
 
@@ -54,8 +55,15 @@ the transform.
 
 ## Toggle
 
-Button states per video: **auto** (default) → **off** → **on** (forced; uses
-detected ratio, else assumes 21:9). Resets on navigation.
+Button states per video: **auto** (default) ↔ **off**. Resets on navigation.
+There is deliberately no "forced on" state: forcing a zoom the math says is
+unnecessary would crop real picture, which the extension never does.
+
+Because the zoom is a no-op on any display no wider than the picture, every
+toggle also raises a brief in-player toast saying what happened — filling at
+N×, or no zoom and why (screen too narrow / no bars / still detecting).
+Without it the control looks broken on a 16:9 screen, which is exactly how
+the first Chrome Web Store submission was rejected.
 
 ## Files
 

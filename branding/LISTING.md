@@ -14,14 +14,19 @@ Copy/paste source for the Web Store dashboard. Keep this in sync with `manifest.
 
 ## Short description (max 132 characters)
 
-> Auto-zooms letterboxed 21:9 YouTube videos to fill your ultrawide screen in fullscreen — without cropping real content.
+> For 21:9/32:9 monitors: fills your ultrawide screen with letterboxed YouTube video in fullscreen. No effect on 16:9.
 
-<!-- 121 characters -->
+<!-- 116 characters -->
 
 ## Detailed description
 
 ```
 Watch ultrawide videos the way they were meant to be seen.
+
+REQUIRES AN ULTRAWIDE DISPLAY (21:9 or 32:9)
+This extension zooms letterboxed video to fill your screen's extra width. A
+standard 16:9 or 16:10 display has no extra width to fill, so on those screens
+it intentionally does nothing at all. The toggle will tell you so on screen.
 
 Some YouTube videos are shot in 21:9 (cinematic ultrawide) but uploaded
 inside a 16:9 frame, so they arrive with black bars baked into the picture.
@@ -37,14 +42,16 @@ HOW IT WORKS
   content ratio to your screen's ratio.
 • Zooms only when it helps: letterboxed 21:9 content fills the screen,
   while genuine 16:9 videos are left untouched.
-• On a standard 16:9 monitor it does nothing — there's no extra width to
-  fill, so nothing ever changes.
-• The zoom is a uniform scale, so the image is never distorted.
+• The zoom is a uniform scale, so the image is never distorted, and real
+  picture is never cropped — if filling the screen would cut into the
+  image, it leaves the video alone instead.
 
 CONTROLS
 • A toggle button in the player's control bar (and the Shift+Z shortcut)
   switches Ultrawide Fill On or Off for the current video.
 • "On" (the default) auto-detects and fills; "Off" leaves the video alone.
+• Each toggle shows a brief on-screen message confirming what happened —
+  including when no zoom applies, and why.
 • The setting resets when you move to another video.
 
 PRIVACY
@@ -85,6 +92,37 @@ Check **"I do not collect or use user data."** The extension:
 
 - **Privacy policy URL:** https://yt-ultrawide.github.io/yt-ultrawide/privacy-policy.html
   (served by GitHub Pages from `docs/` on the public repo)
+
+## Notes for reviewers (paste into the submission's reviewer-notes field)
+
+```
+IMPORTANT: this extension is a deliberate no-op on a 16:9 display.
+
+It removes the black bars from letterboxed ultrawide video by zooming it to
+fill the extra width of a 21:9 / 32:9 monitor. A 16:9 screen has no extra
+width, and zooming further would crop real picture — which this extension
+never does — so on 16:9 it correctly does nothing to the video.
+
+A previous submission was rejected as "non functional" for this reason.
+
+HOW TO VERIFY WITHOUT AN ULTRAWIDE MONITOR
+1. Open https://www.youtube.com/watch?v=aOY7HTQlsSo
+   (2.37:1 picture letterboxed inside a 16:9 upload)
+2. Open DevTools > toggle Device Toolbar > Responsive > set 3440 x 1440.
+3. Play the video and enter fullscreen.
+4. The black bars disappear as the picture fills the width.
+   Console logs: [YTUW] content aspect locked: 2.370
+                 [YTUW] zoom applied: 1.333
+
+Repeat step 2 with 1920 x 1080 and no zoom is applied - correct behaviour,
+because filling a 16:9 screen with a 2.37:1 picture would crop it.
+
+THE TOGGLE BUTTON
+The button sits in the player control bar, immediately left of the
+theater-mode button (48x40, same size as the native controls); Shift+Z is
+the shortcut. Clicking it always raises an on-screen message confirming the
+new state, including on 16:9 where the video itself does not change.
+```
 
 ## Screenshots (need 1–5; 1280×800 or 640×400)
 
