@@ -34,7 +34,7 @@ On a 21:9 monitor that means bars on all four sides and a tiny image.
 
 YT Ultrawide Fill fixes that automatically. In fullscreen, it measures the
 real content aspect ratio of the video and zooms it so the picture fills the
-width of your ultrawide display — with no stretching and no cropping of
+width of your ultrawide display, with no stretching and no cropping of
 actual content.
 
 HOW IT WORKS
@@ -43,14 +43,14 @@ HOW IT WORKS
 • Zooms only when it helps: letterboxed 21:9 content fills the screen,
   while genuine 16:9 videos are left untouched.
 • The zoom is a uniform scale, so the image is never distorted, and real
-  picture is never cropped — if filling the screen would cut into the
+  picture is never cropped. If filling the screen would cut into the
   image, it leaves the video alone instead.
 
 CONTROLS
 • A toggle button in the player's control bar (and the Shift+Z shortcut)
   switches Ultrawide Fill On or Off for the current video.
 • "On" (the default) auto-detects and fills; "Off" leaves the video alone.
-• Each toggle shows a brief on-screen message confirming what happened —
+• Each toggle shows a brief on-screen message confirming what happened,
   including when no zoom applies, and why.
 • The setting resets when you move to another video.
 
@@ -93,35 +93,20 @@ Check **"I do not collect or use user data."** The extension:
 - **Privacy policy URL:** https://yt-ultrawide.github.io/yt-ultrawide/privacy-policy.html
   (served by GitHub Pages from `docs/` on the public repo)
 
-## Test instructions (dashboard → the item → **Test instructions** tab)
+## Test instructions (dashboard → the item → **Test instructions** tab; max 500 chars)
 
 ```
-IMPORTANT: this extension is a deliberate no-op on a 16:9 display.
+Only changes video on ultrawide (21:9/32:9) displays. On 16:9 it correctly does nothing: filling the screen would crop real picture.
 
-It removes the black bars from letterboxed ultrawide video by zooming it to
-fill the extra width of a 21:9 / 32:9 monitor. A 16:9 screen has no extra
-width, and zooming further would crop real picture — which this extension
-never does — so on 16:9 it correctly does nothing to the video.
+Verify without an ultrawide monitor:
+1. Open youtube.com/watch?v=aOY7HTQlsSo (2.37:1 picture in a 16:9 upload)
+2. DevTools > Device Toolbar > Responsive > 3440x1440
+3. Play, then fullscreen. Bars disappear.
+   Console: [YTUW] zoom applied: 1.333
 
-A previous submission was rejected as "non functional" for this reason.
+At 1920x1080 no zoom is applied. That is correct.
 
-HOW TO VERIFY WITHOUT AN ULTRAWIDE MONITOR
-1. Open https://www.youtube.com/watch?v=aOY7HTQlsSo
-   (2.37:1 picture letterboxed inside a 16:9 upload)
-2. Open DevTools > toggle Device Toolbar > Responsive > set 3440 x 1440.
-3. Play the video and enter fullscreen.
-4. The black bars disappear as the picture fills the width.
-   Console logs: [YTUW] content aspect locked: 2.370
-                 [YTUW] zoom applied: 1.333
-
-Repeat step 2 with 1920 x 1080 and no zoom is applied - correct behaviour,
-because filling a 16:9 screen with a 2.37:1 picture would crop it.
-
-THE TOGGLE BUTTON
-The button sits in the player control bar, immediately left of the
-theater-mode button (48x40, same size as the native controls); Shift+Z is
-the shortcut. Clicking it always raises an on-screen message confirming the
-new state, including on 16:9 where the video itself does not change.
+Toggle: control bar, left of theater mode, or Shift+Z.
 ```
 
 ## Screenshots (need 1–5; 1280×800 or 640×400)
