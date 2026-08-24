@@ -111,6 +111,54 @@
     console.info(TAG, 'mode:', mode);
     updateButton();
     updateZoom();
+    showToast(describeState());
+  }
+
+  // ---------- toast ----------
+
+  // The zoom is a no-op on any display that is not wider than the picture, so
+  // on a 16:9 screen toggling changes nothing visible. Say what happened and
+  // why, otherwise the control looks broken on the very hardware most people
+  // (and store reviewers) test on.
+  const asRatio = (r) => `${r.toFixed(2)}:1`;
+
+  function describeState() {
+    if (mode === 'off') return 'Ultrawide fill: off';
+    if (!document.fullscreenElement) return 'Ultrawide fill: on (fullscreen only)';
+
+    const video = getVideo();
+    const C = lockedRatio || aggregator.provisional();
+    if (!video || !video.videoWidth || !C) return 'Ultrawide fill: detecting…';
+
+    if (appliedZoom > 1) return `Ultrawide fill: on — ${appliedZoom.toFixed(2)}×`;
+
+    const S = window.innerWidth / window.innerHeight;
+    const F = video.videoWidth / video.videoHeight;
+    // Letterboxed, but the screen is no wider than the picture: filling it
+    // would crop. Name the screen ratio so "nothing happened" reads as a
+    // property of the display rather than a broken button.
+    if (C > F + 0.02) return `Ultrawide fill: on — screen too narrow (${asRatio(S)})`;
+    return 'Ultrawide fill: on — no bars in this video';
+  }
+
+  let toastTimer = null;
+
+  function showToast(text) {
+    const player = document.querySelector('#movie_player') || document.body;
+    if (!player) return;
+    let toast = player.querySelector('.ytuw-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'ytuw-toast';
+      player.appendChild(toast);
+    }
+    toast.textContent = text; // no innerHTML: YouTube enforces Trusted Types
+    // Restart the fade even if the toast is already on screen.
+    toast.classList.remove('ytuw-toast-visible');
+    void toast.offsetWidth;
+    toast.classList.add('ytuw-toast-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('ytuw-toast-visible'), 2600);
   }
 
   function updateButton() {
@@ -168,6 +216,7 @@
       video.style.removeProperty('--ytuw-zoom');
     }
     appliedZoom = 1;
+    clearTimeout(toastTimer);
     if (location.pathname === '/watch') {
       scheduleSampling(BURST_INTERVAL_MS);
       ensureButton();
