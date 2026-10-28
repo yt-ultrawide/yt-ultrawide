@@ -1,7 +1,11 @@
+/* Kept off .ytuw-zoomed so zoom-out animates too, not just zoom-in. */
+video.ytuw-transition {
+  transition: transform 0.3s ease !important;
+  transform-origin: center center !important;
+}
+
 video.ytuw-zoomed {
   transform: scale(var(--ytuw-zoom)) !important;
-  transform-origin: center center !important;
-  transition: transform 0.3s ease !important;
 }
 
 .ytuw-button svg {

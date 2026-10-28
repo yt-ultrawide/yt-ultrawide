@@ -5,16 +5,21 @@
 
   const TAG = '[YTUW]';
   // Sampling is cheap (~1 ms on a 256px canvas), so burst until the ratio
-  // locks, then back off to a slow re-check.
+  // locks. After lock we keep re-checking at 500 ms: 5 samples ≈ 2.5 s is
+  // enough to notice a mid-video aspect change (movie → 16:9 trailer, etc.)
+  // without measurable CPU cost.
   const BURST_INTERVAL_MS = 300;
-  const RECHECK_INTERVAL_MS = 10000;
+  const RECHECK_INTERVAL_MS = 500;
   const CANVAS_WIDTH = 256;
+  // The challenger needs fewer agreeing samples than the initial lock so
+  // format changes are picked up fast. With a 500 ms tick this is ~1.5 s.
+  const CHALLENGER_SAMPLES = 3;
 
   // Per-video state, reset on navigation.
   let mode = 'on'; // 'on' (auto-detect) | 'off'
   let aggregator = new RatioAggregator();
   let lockedRatio = null;
-  let challenger = new RatioAggregator();
+  let challenger = new RatioAggregator(CHALLENGER_SAMPLES);
   let sampleTimer = null;
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -56,13 +61,18 @@
         updateZoom(); // apply optimistic zoom as soon as 2 samples agree
       }
     } else {
-      // Watch for a mid-video format change.
+      // Watch for a mid-video format change. The challenger is reset on
+      // every lock (not just on a detected change) so it can't get stuck
+      // on an old value — that was the reason bars-gone was never noticed.
       const rival = challenger.push(ratio);
-      if (rival && Math.abs(rival - lockedRatio) / lockedRatio > 0.03) {
-        console.info(TAG, 'content aspect changed:', lockedRatio.toFixed(3), '->', rival.toFixed(3));
-        lockedRatio = rival;
-        challenger = new RatioAggregator();
-        updateZoom();
+      if (rival) {
+        const changed = Math.abs(rival - lockedRatio) / lockedRatio > 0.03;
+        challenger = new RatioAggregator(CHALLENGER_SAMPLES);
+        if (changed) {
+          console.info(TAG, 'content aspect changed:', lockedRatio.toFixed(3), '->', rival.toFixed(3));
+          lockedRatio = rival;
+          updateZoom();
+        }
       }
     }
   }
@@ -79,6 +89,11 @@
   function updateZoom() {
     const video = getVideo();
     if (!video) return;
+    // Make sure the transition is active before we touch transform, so
+    // zoom-out animates just like zoom-in. Idempotent.
+    if (!video.classList.contains('ytuw-transition')) {
+      video.classList.add('ytuw-transition');
+    }
     let zoom = 1;
     if (document.fullscreenElement && mode !== 'off' && video.videoWidth) {
       const S = window.innerWidth / window.innerHeight;
@@ -209,7 +224,7 @@
     mode = 'on';
     lockedRatio = null;
     aggregator = new RatioAggregator();
-    challenger = new RatioAggregator();
+    challenger = new RatioAggregator(CHALLENGER_SAMPLES);
     const video = getVideo();
     if (video) {
       video.classList.remove('ytuw-zoomed');
